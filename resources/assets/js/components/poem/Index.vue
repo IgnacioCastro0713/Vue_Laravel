@@ -16,7 +16,7 @@
                 </div>
                 <div class="card-footer">
                     <router-link class="btn btn-success" v-bind:to="{name: 'poem-edit', params: {id: poe.id}}">Editar</router-link>
-                    <button class="btn btn-danger" v-on:click="onDelete(poe.id)">Eliminar</button>
+                    <button class="btn btn-danger" v-on:click="onDelete(poe.id)">Eliminar {{poe.id}}</button>
                 </div>
             </div>
         </div>
@@ -37,8 +37,22 @@
         },
         methods: {
             onDelete(index) {
-                let url = '/poem/'.concat(index);
-                axios.delete(url).then(() => {this.poems.splice(this.poems.indexOf(index), 1)});
+                this.$swal({
+                    title: '¿Desea eliminar este resgistro?',
+                    text: "se eliminara el registro",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Borrar',
+                    cancelButtonText: 'Cancelar',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.value) {
+                        let url = '/poem/'.concat(index);
+                        axios.delete(url).then(() => {
+                            this.poems.splice(this.poems.indexOf(index), 1)
+                        });
+                    }
+                });
             }
         },
         computed: {

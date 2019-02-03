@@ -4,14 +4,21 @@
             <div class="card-header">Editar poema</div>
             <div class="card-body">
                 <form method="POST" v-on:submit.prevent="onUpdate">
-                    <div class="form-group row">
+                    <div class="form-group">
                         <label for="poem" class="">Poema</label>
-                        <input type="text" id="poem" name="poem" class="form-control col-md-12" v-model="form.poem">
-
-                        <label for="autor" class="">Autor</label>
-                        <input type="text" id="autor" name="autor" class="form-control col-md-12" v-model="form.autor">
+                        <textarea type="text" id="poem" name="poem" class="form-control col-md-12" rows="5"
+                                  v-validate="'required'"
+                                  v-model="form.poem"></textarea>
+                        <small class="text-danger">{{ errors.first('poem') }}</small>
                     </div>
-                    <div class="form-group row">
+                    <div class="form-group">
+                        <label for="autor" class="">Autor</label>
+                        <input type="text" id="autor" name="autor" class="form-control col-md-12"
+                               v-validate="'required'"
+                               v-model="form.autor">
+                        <small class="text-danger">{{ errors.first('autor') }}</small>
+                    </div>
+                    <div class="form-group">
                         <button class="btn btn-info" type="submit">Guardar</button>
                     </div>
                 </form>
@@ -36,11 +43,29 @@
         },
         methods: {
             onUpdate() {
-                let url = '/poem/'.concat(this.$route.params.id);
-                axios.patch(url, this.form).then(() => { this.$router.push({name:'poem-index'})});
+                this.$validator.validateAll.then((result) => {
+                    if (result){
+                        this.toast('Exito!', 'Guardado correctamente', 'success');
+                        let url = '/poem/'.concat(this.$route.params.id);
+                        axios.patch(url, this.form).then(() => {
+                            this.$router.push({name:'poem-index'})
+                        });
+                    } else
+                        this.toast('Error!', 'Por favor ingresa la información correctamente.', 'error');
+                });
             },
-
-        },
+            toast(title, message, type) {
+                this.$swal({
+                    title: title,
+                    text: message,
+                    type: type,
+                    toast: true,
+                    position: 'top',
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
+            },
+        }
     }
 </script>
 
