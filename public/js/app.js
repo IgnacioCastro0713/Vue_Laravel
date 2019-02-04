@@ -50613,12 +50613,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
-        onDelete: function onDelete(index) {
+        onDelete: function onDelete(element, index) {
             var _this2 = this;
 
             this.$swal(confirmDelete).then(function (result) {
                 if (result.value) {
-                    var url = '/poem/'.concat(index);
+                    var url = '/poem/'.concat(element);
                     axios.delete(url).then(function () {
                         _this2.$swal(toastDelete);
                         _this2.poems.splice(_this2.poems.indexOf(index), 1);
@@ -50729,11 +50729,11 @@ var render = function() {
                       staticClass: "btn btn-danger",
                       on: {
                         click: function($event) {
-                          _vm.onDelete(poe.id)
+                          _vm.onDelete(poe.id, poe)
                         }
                       }
                     },
-                    [_vm._v("Eliminar " + _vm._s(poe.id))]
+                    [_vm._v("Eliminar")]
                   )
                 ],
                 1
@@ -50808,6 +50808,9 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
 //
 //
 //
@@ -50912,6 +50915,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "form-control col-md-12",
+                class: { "is-invalid": _vm.errors.has("poem") },
                 attrs: { type: "text", id: "poem", name: "poem", rows: "5" },
                 domProps: { value: _vm.form.poem },
                 on: {
@@ -50948,6 +50952,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "form-control col-md-12",
+                class: { "is-invalid": _vm.errors.has("autor") },
                 attrs: { type: "text", id: "autor", name: "autor" },
                 domProps: { value: _vm.form.autor },
                 on: {
@@ -51075,6 +51080,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -51098,7 +51105,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         onUpdate: function onUpdate() {
             var _this2 = this;
 
-            this.$validator.validateAll.then(function (result) {
+            this.$validator.validateAll().then(function (result) {
                 if (result) {
                     var url = '/poem/'.concat(_this2.$route.params.id);
                     axios.patch(url, _this2.form).then(function () {
@@ -51155,6 +51162,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "form-control col-md-12",
+                class: { "is-invalid": _vm.errors.has("poem") },
                 attrs: { type: "text", id: "poem", name: "poem", rows: "5" },
                 domProps: { value: _vm.form.poem },
                 on: {
@@ -51191,6 +51199,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "form-control col-md-12",
+                class: { "is-invalid": _vm.errors.has("autor") },
                 attrs: { type: "text", id: "autor", name: "autor" },
                 domProps: { value: _vm.form.autor },
                 on: {

@@ -16,7 +16,7 @@
                 </div>
                 <div class="card-footer">
                     <router-link class="btn btn-success" v-bind:to="{name: 'poem-edit', params: {id: poe.id}}">Editar</router-link>
-                    <button class="btn btn-danger" v-on:click="onDelete(poe.id)">Eliminar {{poe.id}}</button>
+                    <button class="btn btn-danger" v-on:click="onDelete(poe.id, poe)">Eliminar</button>
                 </div>
             </div>
         </div>
@@ -36,10 +36,10 @@
             axios.get('/poem').then((response) => { this.poems = response.data });
         },
         methods: {
-            onDelete(index) {
+            onDelete(element, index) {
                 this.$swal(confirmDelete).then((result) => {
                     if (result.value) {
-                        let url = '/poem/'.concat(index);
+                        let url = '/poem/'.concat(element);
                         axios.delete(url).then(() => {
                             this.$swal(toastDelete);
                             this.poems.splice(this.poems.indexOf(index), 1);

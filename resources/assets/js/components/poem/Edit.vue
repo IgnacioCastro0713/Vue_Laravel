@@ -7,6 +7,7 @@
                     <div class="form-group">
                         <label for="poem" class="">Poema</label>
                         <textarea type="text" id="poem" name="poem" class="form-control col-md-12" rows="5"
+                                  :class="{'is-invalid': errors.has('poem')}"
                                   v-validate="'required'"
                                   v-model="form.poem"></textarea>
                         <small class="text-danger">{{ errors.first('poem') }}</small>
@@ -14,6 +15,7 @@
                     <div class="form-group">
                         <label for="autor" class="">Autor</label>
                         <input type="text" id="autor" name="autor" class="form-control col-md-12"
+                               :class="{'is-invalid': errors.has('autor')}"
                                v-validate="'required'"
                                v-model="form.autor">
                         <small class="text-danger">{{ errors.first('autor') }}</small>
@@ -43,7 +45,7 @@
         },
         methods: {
             onUpdate() {
-                this.$validator.validateAll.then((result) => {
+                this.$validator.validateAll().then((result) => {
                     if (result){
                         let url = '/poem/'.concat(this.$route.params.id);
                         axios.patch(url, this.form).then(() => {
