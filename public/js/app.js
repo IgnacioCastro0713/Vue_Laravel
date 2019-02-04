@@ -14071,9 +14071,9 @@ __webpack_require__(15);
 
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2_axios___default.a, __WEBPACK_IMPORTED_MODULE_3_vee_validate__["b" /* default */]);
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_5_vue_sweetalert2__["a" /* default */]);
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_3_vee_validate__["b" /* default */]);
 __WEBPACK_IMPORTED_MODULE_3_vee_validate__["a" /* Validator */].localize('es', __WEBPACK_IMPORTED_MODULE_4_vee_validate_dist_locale_es___default.a);
-__WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_5_vue_sweetalert2__["a" /* default */]);
 
 var App = __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('app-component', __webpack_require__(41));
 var poemIndex = __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('poem-index', __webpack_require__(44));
@@ -50616,18 +50616,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         onDelete: function onDelete(index) {
             var _this2 = this;
 
-            this.$swal({
-                title: '¿Desea eliminar este resgistro?',
-                text: "se eliminara el registro",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Borrar',
-                cancelButtonText: 'Cancelar',
-                reverseButtons: true
-            }).then(function (result) {
+            this.$swal(confirmDelete).then(function (result) {
                 if (result.value) {
                     var url = '/poem/'.concat(index);
                     axios.delete(url).then(function () {
+                        _this2.$swal(toastDelete);
                         _this2.poems.splice(_this2.poems.indexOf(index), 1);
                     });
                 }
@@ -50862,21 +50855,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$validator.validateAll().then(function (result) {
                 if (result) {
                     axios.post('/poem', _this.form).then(function () {
-                        _this.toast('Exito!', 'Guardado correctamente', 'success');
+                        _this.$swal(toastSuccess);
                         _this.$router.push({ name: 'poem-index' });
                     });
-                } else _this.toast('Error!', 'Por favor ingresa la información correctamente.', 'error');
-            });
-        },
-        toast: function toast(title, message, type) {
-            this.$swal({
-                title: title,
-                text: message,
-                type: type,
-                toast: true,
-                position: 'top',
-                showConfirmButton: false,
-                timer: 2000
+                } else _this.$swal(toastError);
             });
         }
     }
@@ -51118,23 +51100,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.$validator.validateAll.then(function (result) {
                 if (result) {
-                    _this2.toast('Exito!', 'Guardado correctamente', 'success');
                     var url = '/poem/'.concat(_this2.$route.params.id);
                     axios.patch(url, _this2.form).then(function () {
+                        _this2.$swal(toastSuccess);
                         _this2.$router.push({ name: 'poem-index' });
                     });
-                } else _this2.toast('Error!', 'Por favor ingresa la información correctamente.', 'error');
-            });
-        },
-        toast: function toast(title, message, type) {
-            this.$swal({
-                title: title,
-                text: message,
-                type: type,
-                toast: true,
-                position: 'top',
-                showConfirmButton: false,
-                timer: 2000
+                } else _this2.$swal(toastError);
             });
         }
     }

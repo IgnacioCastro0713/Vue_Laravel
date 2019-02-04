@@ -37,19 +37,12 @@
         },
         methods: {
             onDelete(index) {
-                this.$swal({
-                    title: '¿Desea eliminar este resgistro?',
-                    text: "se eliminara el registro",
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Borrar',
-                    cancelButtonText: 'Cancelar',
-                    reverseButtons: true
-                }).then((result) => {
+                this.$swal(confirmDelete).then((result) => {
                     if (result.value) {
                         let url = '/poem/'.concat(index);
                         axios.delete(url).then(() => {
-                            this.poems.splice(this.poems.indexOf(index), 1)
+                            this.$swal(toastDelete);
+                            this.poems.splice(this.poems.indexOf(index), 1);
                         });
                     }
                 });

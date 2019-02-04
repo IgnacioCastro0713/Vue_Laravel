@@ -45,26 +45,15 @@
             onUpdate() {
                 this.$validator.validateAll.then((result) => {
                     if (result){
-                        this.toast('Exito!', 'Guardado correctamente', 'success');
                         let url = '/poem/'.concat(this.$route.params.id);
                         axios.patch(url, this.form).then(() => {
-                            this.$router.push({name:'poem-index'})
+                            this.$swal(toastSuccess);
+                            this.$router.push({name:'poem-index'});
                         });
                     } else
-                        this.toast('Error!', 'Por favor ingresa la información correctamente.', 'error');
+                        this.$swal(toastError);
                 });
-            },
-            toast(title, message, type) {
-                this.$swal({
-                    title: title,
-                    text: message,
-                    type: type,
-                    toast: true,
-                    position: 'top',
-                    showConfirmButton: false,
-                    timer: 2000,
-                });
-            },
+            }
         }
     }
 </script>

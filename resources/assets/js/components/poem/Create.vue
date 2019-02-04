@@ -42,22 +42,11 @@
                 this.$validator.validateAll().then((result) => {
                     if (result) {
                         axios.post('/poem', this.form).then(() => {
-                            this.toast('Exito!', 'Guardado correctamente', 'success');
-                            this.$router.push({name: 'poem-index'})
+                            this.$swal(toastSuccess);
+                            this.$router.push({name: 'poem-index'});
                         });
                     } else
-                        this.toast('Error!', 'Por favor ingresa la información correctamente.', 'error');
-                });
-            },
-            toast(title, message, type){
-                this.$swal({
-                    title: title,
-                    text: message,
-                    type: type,
-                    toast: true,
-                    position: 'top',
-                    showConfirmButton: false,
-                    timer: 2000,
+                        this.$swal(toastError);
                 });
             },
         }

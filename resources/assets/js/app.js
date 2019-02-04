@@ -8,9 +8,9 @@ import esLocale from 'vee-validate/dist/locale/es';
 import VueSweetalert2 from 'vue-sweetalert2';
 
 Vue.use(VueRouter, Axios, VeeValidate);
+Vue.use(VueSweetalert2);
 Vue.use(VeeValidate);
 Validator.localize('es', esLocale);
-Vue.use(VueSweetalert2);
 
 const App = Vue.component('app-component', require('./components/layouts/App'));
 const poemIndex = Vue.component('poem-index', require('./components/poem/Index'));
