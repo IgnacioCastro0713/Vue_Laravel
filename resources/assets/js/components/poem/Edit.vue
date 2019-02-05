@@ -6,7 +6,7 @@
                 <form method="POST" v-on:submit.prevent="onUpdate">
                     <div class="form-group">
                         <label for="poem" class="">Poema</label>
-                        <textarea type="text" id="poem" name="poem" class="form-control col-md-12" rows="5"
+                        <textarea type="text" id="poem" name="poem" class="form-control col-md-12" rows="5" placeholder="Escribe..."
                                   :class="{'is-invalid': errors.has('poem')}"
                                   v-validate="'required'"
                                   v-model="form.poem"></textarea>
@@ -14,7 +14,7 @@
                     </div>
                     <div class="form-group">
                         <label for="autor" class="">Autor</label>
-                        <input type="text" id="autor" name="autor" class="form-control col-md-12"
+                        <input type="text" id="autor" name="autor" class="form-control col-md-12" placeholder="Nombre"
                                :class="{'is-invalid': errors.has('autor')}"
                                v-validate="'required'"
                                v-model="form.autor">
@@ -22,6 +22,7 @@
                     </div>
                     <div class="form-group">
                         <button class="btn btn-info" type="submit">Guardar</button>
+                        <router-link class="btn btn-danger" :to="{path: '/poem'}">Cancelar</router-link>
                     </div>
                 </form>
             </div>

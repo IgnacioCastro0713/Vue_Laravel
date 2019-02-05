@@ -6,16 +6,15 @@
                 <form method="POST" v-on:submit.prevent="onCreate">
                     <div class="form-group">
                         <label for="poem" class="">Poema</label>
-                        <textarea type="text" id="poem" name="poem" class="form-control col-md-12" rows="5"
+                        <textarea type="text" id="poem" name="poem" class="form-control col-md-12" rows="5" placeholder="Escribe..."
                                   :class="{'is-invalid': errors.has('poem')}"
                                   v-validate="'required'"
-
                                   v-model="form.poem"></textarea>
                         <small class="text-danger">{{ errors.first('poem') }}</small>
                     </div>
                     <div class="form-group">
                         <label for="autor" class="">Autor</label>
-                        <input type="text" id="autor" name="autor" class="form-control col-md-12"
+                        <input type="text" id="autor" name="autor" class="form-control col-md-12" placeholder="Nombre"
                                :class="{'is-invalid': errors.has('autor')}"
                                v-validate="'required'"
                                v-model="form.autor">

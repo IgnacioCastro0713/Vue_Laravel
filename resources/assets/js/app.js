@@ -30,7 +30,7 @@ const routes = [
     },
     {
         name: 'poem-edit',
-        path: '/poem/:id/edit/',
+        path: '/poem/:id/edit',
         component: poemEdit
     },
 ];

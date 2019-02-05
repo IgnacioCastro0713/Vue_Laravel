@@ -29,11 +29,14 @@ const toastError = {
 };
 
 const confirmDelete = {
+    /*confirmButtonClass: 'btn btn-success',
+    cancelButtonClass: 'btn btn-danger',
+    buttonsStyling: false,*/
     title: '¿Desea eliminar este resgistro?',
     text: "se eliminara el registro",
     type: 'warning',
     showCancelButton: true,
-    confirmButtonText: 'Borrar',
+    confirmButtonText: ' Borrar',
     cancelButtonText: 'Cancelar',
     reverseButtons: true
 };

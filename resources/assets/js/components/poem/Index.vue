@@ -36,13 +36,13 @@
             axios.get('/poem').then((response) => { this.poems = response.data });
         },
         methods: {
-            onDelete(element, index) {
+            onDelete(id, element) {
                 this.$swal(confirmDelete).then((result) => {
                     if (result.value) {
-                        let url = '/poem/'.concat(element);
+                        let url = '/poem/'.concat(id);
                         axios.delete(url).then(() => {
                             this.$swal(toastDelete);
-                            this.poems.splice(this.poems.indexOf(index), 1);
+                            this.poems.splice(this.poems.indexOf(element), 1);
                         });
                     }
                 });
